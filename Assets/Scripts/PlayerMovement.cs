@@ -10,7 +10,6 @@ public class PlayerMovement : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
         float magnitute = Mathf.Max(Mathf.Abs(horizontalInput), Mathf.Abs(verticalInput));
-
         transform.position += new Vector3(horizontalInput, verticalInput, 0).normalized * magnitute * movementSpeed * Time.deltaTime;
     }
 }
