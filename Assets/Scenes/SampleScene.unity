@@ -395,7 +395,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.71, y: -2.44, z: -3.41}
   m_LocalScale: {x: 0.8657, y: 0.8657, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1459831807}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -432,6 +433,9 @@ MonoBehaviour:
   moveSpeed: 5
   damage: 10
   timeToDamage: 1
+  radius: 3
+  gizmoColor: {r: 0, g: 1, b: 0, a: 0.34901962}
+  showGizmos: 1
 --- !u!50 &182551262
 Rigidbody2D:
   serializedVersion: 4
@@ -1138,6 +1142,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1459831806
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1459831807}
+  m_Layer: 0
+  m_Name: PlayerDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1459831807
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459831806}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.02, y: -0.04, z: 3.591716}
+  m_LocalScale: {x: 1.1551346, y: 1.1551346, z: 1}
+  m_Children: []
+  m_Father: {fileID: 182551259}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1562892892
 GameObject:

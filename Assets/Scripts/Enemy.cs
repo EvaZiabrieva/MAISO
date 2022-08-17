@@ -11,6 +11,12 @@ public class Enemy : MonoBehaviour
     public float damage = 5f;
     public float timeToDamage = 5f;
 
+    public float radius = 5f;
+    public Color gizmoColor = Color.green;
+    public bool showGizmos = true;
+    public bool IsPlayerDetected { get; private set; }
+
+
     private Rigidbody2D rb;
     private float timer = 0f;
 
@@ -36,7 +42,10 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        if (player != null)
+        var collider = Physics2D.OverlapCircle(transform.position, radius);
+        IsPlayerDetected = collider.GetType() == typeof(CapsuleCollider2D);
+
+        if (player != null && IsPlayerDetected)
         {
             Vector2 direction = player.position - transform.position;
             direction.Normalize();
@@ -54,5 +63,11 @@ public class Enemy : MonoBehaviour
             player.TakeDamage(damage);
             timer = 0f;
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = gizmoColor;
+        Gizmos.DrawSphere(transform.position, radius);
     }
 }
