@@ -5,10 +5,14 @@ using System.Threading;
 
 public class Enemy : MonoBehaviour
 {
-    public float health = 100f;
+    public int maxHealth = 200;
+    public int currentHealth;
+    public HealthBar healthBar;
+
     public Transform player;
+
     public float moveSpeed = 10f;
-    public float damage = 5f;
+    public int damage = 5;
     public float timeToDamage = 5f;
 
     public float radius = 5f;
@@ -20,11 +24,19 @@ public class Enemy : MonoBehaviour
     private Rigidbody2D rb;
     private float timer = 0f;
 
-    public void TakeDamage(float damage)
+    private void Start()
     {
-        health -= damage;
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
 
-        if(health <= 0)
+        rb = this.GetComponent<Rigidbody2D>();
+    }
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        healthBar.SetHealth(currentHealth);
+
+        if (currentHealth <= 0)
         {
             Die();
         }
@@ -33,11 +45,6 @@ public class Enemy : MonoBehaviour
     private void Die()
     {
         Destroy(gameObject);
-    }
-
-    private void Start()
-    {
-        rb = this.GetComponent<Rigidbody2D>();
     }
 
     private void Update()

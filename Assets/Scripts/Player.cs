@@ -4,13 +4,21 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float health = 200f;
-
-    public void TakeDamage(float damage)
+    public int maxHealth = 200;
+    public int currentHealth;
+    public HealthBar healthBar;
+    private void Start()
     {
-        health -= damage;
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+    }
 
-        if (health <= 0)
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        healthBar.SetHealth(currentHealth);
+
+        if (currentHealth <= 0)
         {
             Die();
         }
