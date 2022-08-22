@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public int maxHealth = 200;
-    public int currentHealth;
+    public float maxHealth = 200f;
+    public float currentHealth;
     public HealthBar healthBar;
     private void Start()
     {
@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
         healthBar.SetMaxHealth(maxHealth);
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         currentHealth -= damage;
         healthBar.SetHealth(currentHealth);
