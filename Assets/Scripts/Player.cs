@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float maxHealth = 200f;
-    public float currentHealth;
-    public HealthBar healthBar;
+    [SerializeField] private float maxHealth = 200f;
+    [SerializeField] private float currentHealth;
+    [SerializeField] private HealthBar healthBar;
     private void Start()
     {
         currentHealth = maxHealth;

@@ -5,20 +5,16 @@ using System.Threading;
 
 public class Enemy : MonoBehaviour
 {
-    public float maxHealth = 200f;
-    public float currentHealth;
-    public HealthBar healthBar;
+    [SerializeField] private float maxHealth = 200f;
+    [SerializeField] private float currentHealth;
+    [SerializeField] private HealthBar healthBar;
+    [SerializeField] private FieldOfView fieldOfView;
 
-    public Transform player;
+    [SerializeField] private float moveSpeed = 10f;
+    [SerializeField] private float damage = 5;
+    [SerializeField] private float timeToDamage = 5f;
 
-    public float moveSpeed = 10f;
-    public float damage = 5;
-    public float timeToDamage = 5f;
-
-    public float radius = 5f;
-    public Color gizmoColor = Color.green;
-    public bool showGizmos = true;
-    public bool IsPlayerDetected { get; private set; }
+    [SerializeField] private float radius = 5f;
 
 
     private Rigidbody2D rb;
@@ -29,7 +25,8 @@ public class Enemy : MonoBehaviour
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
 
-        rb = this.GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
+        fieldOfView.SetRadius(radius);
     }
     public void TakeDamage(float damage)
     {
@@ -49,32 +46,35 @@ public class Enemy : MonoBehaviour
 
     private void Update()
     {
-        var collider = Physics2D.OverlapCircle(transform.position, radius);
-        IsPlayerDetected = collider.GetType() == typeof(CapsuleCollider2D);
+        Collider2D collider = Physics2D.OverlapCircle(transform.position, radius);
+        Player player = collider.GetComponent<Player>();
+        bool isPlayerVisible = false;
 
-        if (player != null && IsPlayerDetected)
+        if (player != null)
         {
-            Vector2 direction = player.position - transform.position;
+            Vector2 direction = player.transform.position - transform.position;
             direction.Normalize();
-            rb.MovePosition((Vector2)transform.position + (direction * moveSpeed * Time.deltaTime));
-            timer += Time.deltaTime;
+            RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position + direction, direction);
+            isPlayerVisible = hit.collider.GetComponent<Player>() != null;
+            
+            if (isPlayerVisible) 
+            {
+                rb.MovePosition((Vector2)transform.position + (direction * moveSpeed * Time.deltaTime));
+                timer += Time.deltaTime;
+            }
         }
+
+        fieldOfView.SetTriggerded(isPlayerVisible);
     }
 
-    private void OnTriggerStay2D(Collider2D hitInfo)
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        Player player = hitInfo.GetComponent<Player>();
+        Player player = collision.collider.GetComponent<Player>();
 
         if (player != null && timer >= timeToDamage)
         {
             player.TakeDamage(damage);
             timer = 0f;
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = gizmoColor;
-        Gizmos.DrawSphere(transform.position, radius);
     }
 }
