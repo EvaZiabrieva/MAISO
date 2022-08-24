@@ -15,6 +15,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float timeToDamage = 5f;
 
     [SerializeField] private float radius = 5f;
+    [SerializeField] private float shootDistance = 1f;
+
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private LayerMask playerRaycastMask = 1;
 
 
     private Rigidbody2D rb;
@@ -54,12 +59,19 @@ public class Enemy : MonoBehaviour
         {
             Vector2 direction = player.transform.position - transform.position;
             direction.Normalize();
-            RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position + direction, direction);
+            RaycastHit2D hit = Physics2D.Raycast((Vector2)transform.position + direction, direction, radius, playerRaycastMask);
             isPlayerVisible = hit.collider.GetComponent<Player>() != null;
             
             if (isPlayerVisible) 
             {
                 rb.MovePosition((Vector2)transform.position + (direction * moveSpeed * Time.deltaTime));
+                if (timer >= timeToDamage)
+                {
+                    GameObject bullet = Instantiate(bulletPrefab, transform.position + (Vector3)direction * shootDistance, Quaternion.identity);
+                    bullet.transform.up = direction;
+                    timer = 0f;
+                }
+                    
                 timer += Time.deltaTime;
             }
         }
