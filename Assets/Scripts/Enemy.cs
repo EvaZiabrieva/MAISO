@@ -17,9 +17,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float radius = 5f;
     [SerializeField] private float shootDistance = 1f;
 
-    [SerializeField] private Transform firePoint;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private LayerMask playerRaycastMask = 1;
+    [SerializeField] private Element element;
+
+    public Element Element => element;
 
 
     private Rigidbody2D rb;

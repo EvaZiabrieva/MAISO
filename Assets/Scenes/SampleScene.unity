@@ -438,7 +438,6 @@ MonoBehaviour:
   timeToDamage: 1
   radius: 5
   shootDistance: 1
-  firePoint: {fileID: 1694420224}
   bulletPrefab: {fileID: 8355809979589039656, guid: e7d1460fd8ce45941b3c9441ee94b995, type: 3}
   playerRaycastMask:
     serializedVersion: 2

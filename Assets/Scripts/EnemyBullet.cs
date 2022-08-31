@@ -7,6 +7,7 @@ public class EnemyBullet : MonoBehaviour
     [SerializeField] private float speed = 10f;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float damage = 10f;
+    [SerializeField] private Element element;
 
     private void Start()
     {
@@ -18,7 +19,7 @@ public class EnemyBullet : MonoBehaviour
         Player player = hitInfo.GetComponent<Player>();
         if (player != null)
         {
-            player.TakeDamage(damage);
+            player.TakeDamage(damage * DamageCalculation.GetDamageScale(element, player.Element));
         }
         Destroy(gameObject);
     }

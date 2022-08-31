@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float speed = 10f;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float damage = 20;
+    [SerializeField] private Element element;
 
     private void Start()
     {
@@ -18,7 +19,8 @@ public class Bullet : MonoBehaviour
         Enemy enemy = hitInfo.GetComponent<Enemy>();
         if(enemy != null)
         {
-            enemy.TakeDamage(damage);
+            enemy.TakeDamage(damage * DamageCalculation.GetDamageScale(element, enemy.Element));
+            Debug.Log(DamageCalculation.GetDamageScale(element, enemy.Element) + " " + element + " " + enemy.Element);
         }
         Destroy(gameObject);
     }

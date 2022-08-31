@@ -7,6 +7,10 @@ public class Player : MonoBehaviour
     [SerializeField] private float maxHealth = 200f;
     [SerializeField] private float currentHealth;
     [SerializeField] private HealthBar healthBar;
+    [SerializeField] private Element element;
+
+    public Element Element => element;
+
     private void Start()
     {
         currentHealth = maxHealth;
