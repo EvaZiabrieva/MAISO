@@ -442,6 +442,7 @@ MonoBehaviour:
   playerRaycastMask:
     serializedVersion: 2
     m_Bits: 1
+  element: 1
 --- !u!50 &182551262
 Rigidbody2D:
   serializedVersion: 4
@@ -595,13 +596,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 258525050}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 1.4399999, y: -0.13, z: 8.01786}
   m_LocalScale: {x: 1.505797, y: 1.4332806, z: 1}
   m_Children: []
   m_Father: {fileID: 1562892893}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!1 &278198663
 GameObject:
   m_ObjectHideFlags: 0
@@ -1470,6 +1471,7 @@ MonoBehaviour:
   maxHealth: 200
   currentHealth: 0
   healthBar: {fileID: 1446399814}
+  element: 3
 --- !u!1 &1248231826
 GameObject:
   m_ObjectHideFlags: 0
