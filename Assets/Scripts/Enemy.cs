@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Character
 {
-    [SerializeField] private float maxHealth = 200f;
-    [SerializeField] private float currentHealth;
-    [SerializeField] private HealthBar healthBar;
     [SerializeField] private FieldOfView fieldOfView;
 
     [SerializeField] private float moveSpeed = 10f;
@@ -19,36 +16,17 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private LayerMask playerRaycastMask = 1;
-    [SerializeField] private Element element;
-
-    public Element Element => element;
 
 
     private Rigidbody2D rb;
     private float timer = 0f;
 
-    private void Start()
+    protected override void Start()
     {
-        currentHealth = maxHealth;
-        healthBar.SetMaxHealth(maxHealth);
+        base.Start();
 
         rb = GetComponent<Rigidbody2D>();
         fieldOfView.SetRadius(radius);
-    }
-    public void TakeDamage(float damage)
-    {
-        currentHealth -= damage;
-        healthBar.SetHealth(currentHealth);
-
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
-    }
-
-    private void Die()
-    {
-        Destroy(gameObject);
     }
 
     private void Update()
@@ -83,11 +61,11 @@ public class Enemy : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        Player player = collision.collider.GetComponent<Player>();
+        Character character = collision.collider.GetComponent<Character>();
 
-        if (player != null && timer >= timeToDamage)
+        if (character != null && timer >= timeToDamage)
         {
-            player.TakeDamage(damage);
+            character.TakeDamage(damage);
             timer = 0f;
         }
     }
